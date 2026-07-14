@@ -1,0 +1,30 @@
+{
+  "accounts": {
+    "user1_main": {
+      "instance": "mastodon.social",
+      "username": "dein_username",
+      "display_name": "User1 Main",
+      "limit": 10,
+      "theme": "dark",
+      "cache_ttl": 900
+    },
+    "user2_main": {
+      "instance": "mastodon.net",
+      "username": "dein_username",
+      "display_name": "User2 Tech",
+      "limit": 5,
+      "theme": "light",
+      "cache_ttl": 600
+    }
+  },
+  "widgets": {
+    "mein_multi_widget": {
+      "title": "Mein Mastodon Feed",
+      "accounts": ["user1_main", "user2_tech"]
+    },
+    "user1_nur_main": {
+      "title": "Users1's Hauptfeed",
+      "accounts": ["user1_main"]
+    }
+  }
+}
