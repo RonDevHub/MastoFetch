@@ -1,0 +1,50 @@
+steps:
+  # --- 1. Main-Branch (latest) ---
+  publish-latest:
+    image: woodpeckerci/plugin-kaniko
+    settings:
+      registry: ghcr.io
+      repo: rondevhub/mastofetch
+      username:
+        from_secret: ghcr_user
+      password:
+        from_secret: ghcr_token
+      tags: latest
+      dockerfile: Dockerfile
+      context: .
+    when:
+      event: push
+      branch: main
+
+  # --- 2. Beta-Branch (beta) ---
+  publish-beta:
+    image: woodpeckerci/plugin-kaniko
+    settings:
+      registry: ghcr.io
+      repo: rondevhub/mastofetch
+      username:
+        from_secret: ghcr_user
+      password:
+        from_secret: ghcr_token
+      tags: beta
+      dockerfile: Dockerfile
+      context: .
+    when:
+      event: manual
+      branch: beta
+
+  # --- 3. Release-Tags ---
+  publish-tag:
+    image: woodpeckerci/plugin-kaniko
+    settings:
+      registry: ghcr.io
+      repo: rondevhub/mastofetch
+      username:
+        from_secret: ghcr_user
+      password:
+        from_secret: ghcr_token
+      tags: ${CI_COMMIT_TAG}
+      dockerfile: Dockerfile
+      context: .
+    when:
+      event: tag
