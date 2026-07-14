@@ -1,0 +1,11 @@
+# Git
+.git
+.gitignore
+.github
+.woodpecker
+
+# Docker & local dev
+docker-compose.yml
+Dockerfile
+README.md
+.env.example
