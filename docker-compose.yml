@@ -8,6 +8,8 @@ services:
       - "8080:80"
     volumes:
       # Persistenter Speicher für deine Caches, Bilder und die Konfiguration
+      # Wichtig: Vor dem Ausführen von `docker compose up` müssen die Ordner 'config' und 'storage' 
+      # auf deinem Host existieren, sonst legt Docker sie als Root-Ordner an!
       - ./storage:/var/www/html/storage
       - ./config:/var/www/html/config
       - ./.env:/var/www/html/.env
