@@ -11,8 +11,19 @@ class MastoCache
     public function __construct()
     {
         $this->api = new MastoAPI();
-        if (!is_dir($this->dataDir)) mkdir($this->dataDir, 0755, true);
-        if (!is_dir($this->mediaDir)) mkdir($this->mediaDir, 0755, true);
+
+        // Verzeichnisse anlegen und Berechtigungskontext abfangen
+        if (!is_dir($this->dataDir)) {
+            if (!@mkdir($this->dataDir, 0755, true) && !is_dir($this->dataDir)) {
+                error_log("MastoFetch Error: Verzeichnis kann nicht erstellt werden: " . $this->dataDir);
+            }
+        }
+
+        if (!is_dir($this->mediaDir)) {
+            if (!@mkdir($this->mediaDir, 0755, true) && !is_dir($this->mediaDir)) {
+                error_log("MastoFetch Error: Verzeichnis kann nicht erstellt werden: " . $this->mediaDir);
+            }
+        }
     }
 
     public function getWidgetData(array $widgetConfig, array $allAccounts, bool $forceRefresh = false): array
@@ -50,12 +61,15 @@ class MastoCache
     private function refreshAccountCache(string $accountKey, array $acc, string $cacheFile, int $limit): void
     {
         $idFile = $this->dataDir . "id_{$accountKey}.txt";
-        if (file_exists($idFile)) {
+
+        // Sicherheitsprüfung gegen Errno 21 (Falls Pfad fälschlicherweise ein Ordner ist)
+        $accountId = '';
+        if (file_exists($idFile) && !is_dir($idFile)) {
             $accountId = trim(file_get_contents($idFile));
         } else {
             $accountId = $this->api->getAccountId($acc['instance'], $acc['username'], $accountKey);
-            if ($accountId) {
-                file_put_contents($idFile, $accountId);
+            if ($accountId && !is_dir($idFile)) {
+                @file_put_contents($idFile, $accountId);
             }
         }
 
@@ -121,8 +135,8 @@ class MastoCache
             ];
         }
 
-        if (!empty($processedStatuses)) {
-            file_put_contents($cacheFile, json_encode($processedStatuses));
+        if (!empty($processedStatuses) && !is_dir($cacheFile)) {
+            @file_put_contents($cacheFile, json_encode($processedStatuses));
         }
     }
 
@@ -136,7 +150,6 @@ class MastoCache
                 continue;
             }
 
-            // SSRF Schutz: URL validieren, bevor ein Request abgesetzt wird
             if (!$this->isValidPublicUrl($url)) {
                 continue;
             }
@@ -190,7 +203,6 @@ class MastoCache
     {
         if (empty($url)) return '';
 
-        // Auch beim Medien-Download SSRF-Angriffe unterbinden
         if (!$this->isValidPublicUrl($url)) {
             return '';
         }
@@ -211,8 +223,8 @@ class MastoCache
             curl_setopt($ch, CURLOPT_TIMEOUT, 15);
             $data = curl_exec($ch);
             curl_close($ch);
-            if ($data) {
-                file_put_contents($localPath, $data);
+            if ($data && !is_dir($localPath)) {
+                @file_put_contents($localPath, $data);
             }
         }
         return $fullFilename;
@@ -231,9 +243,6 @@ class MastoCache
         return false;
     }
 
-    /**
-     * Überprüft eine URL auf SSRF-Risiken (Filterung privater/interner IP-Netze)
-     */
     private function isValidPublicUrl(string $url): bool
     {
         $parts = parse_url($url);
@@ -241,21 +250,16 @@ class MastoCache
             return false;
         }
 
-        // Nur HTTP und HTTPS erlauben (kein file://, gopher://, etc.)
         if (isset($parts['scheme']) && !in_array(strtolower($parts['scheme']), ['http', 'https'])) {
             return false;
         }
 
         $host = $parts['host'];
-
-        // Auflösen der IP-Adresse des Hosts
         $ip = gethostbyname($host);
         if (!$ip || $ip === $host) {
-            // Falls die IP nicht aufgelöst werden kann, filtern wir zur Sicherheit via filter_var
             return filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false;
         }
 
-        // Validierung der aufgelösten IPv4 gegen private und reservierte Bereiche
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false;
         }
