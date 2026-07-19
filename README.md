@@ -115,3 +115,4 @@ Für den produktiven Betrieb wird der Container so konfiguriert, dass der `/publ
 ## Lizenz
 
 Dieses Projekt ist Open-Source-Software. Die Weitergabe und Nutzung ist unter Einhaltung gängiger Open-Source-Standards erlaubt.
+
