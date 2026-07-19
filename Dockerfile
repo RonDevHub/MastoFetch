@@ -1,8 +1,9 @@
 FROM php:8.2-apache
 
-# Installiere benötigte System-Abhängigkeiten für die DOM- und cURL-Erweiterungen
+# Installiere benötigte System-Abhängigkeiten und Compiler-Header für cURL und DOM
 RUN apt-get update && apt-get install -y \
     libxml2-dev \
+    libcurl4-openssl-dev \
     curl \
     && docker-php-ext-install dom curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -21,7 +22,7 @@ COPY . /var/www/html
 # Erstelle die benötigten Ordnerstrukturen direkt im Image vor
 RUN mkdir -p /var/www/html/storage/data /var/www/html/storage/media /var/www/html/config
 
-# Setze die Besitzrechte konsequent auf www-data (UID 33)
+# Setze die Besitzrechte konsequent auf www-data (UID 33) für den Apache-Prozess
 RUN chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
