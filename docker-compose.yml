@@ -3,9 +3,6 @@ version: '3.8'
 services:
   mastofetch:
     image: ghcr.io/rondevhub/mastofetch:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: mastofetch_app
     ports:
       - "8080:80"
