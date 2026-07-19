@@ -1,0 +1,238 @@
+:root {
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --border-color: #2a2a2a;
+  --accent: var(--brand-dark);
+}
+html[data-theme="light"] {
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-color: #1a1a1a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --accent: var(--brand-light);
+}
+html[data-theme="mastodon"] {
+  --bg-color: #e8edf1;
+  --card-bg: #ffffff;
+  --text-color: #1a1a1a;
+  --text-muted: #6c7a89;
+  --border-color: #d3d9de;
+  --accent: #3088d4;
+}
+html[data-theme="mastodon-dark"] {
+  --bg-color: #191b22;
+  --card-bg: #22252e;
+  --text-color: #ffffff;
+  --text-muted: #9aa3b1;
+  --border-color: #2c2f38;
+  --accent: #2b90d9;
+}
+html[data-theme="solarized-light"] {
+  --bg-color: #fdf6e3;
+  --card-bg: #fef9e8;
+  --text-color: #586e75;
+  --text-muted: #657b83;
+  --border-color: #eee8d5;
+  --accent: #268bd2;
+}
+html[data-theme="solarized-dark"] {
+  --bg-color: #002b36;
+  --card-bg: #073642;
+  --text-color: #839496;
+  --text-muted: #657b83;
+  --border-color: #073642;
+  --accent: #268bd2;
+}
+html[data-theme="nord"] {
+  --bg-color: #2e3440;
+  --card-bg: #3b4252;
+  --text-color: #eceff4;
+  --text-muted: #d8dee9;
+  --border-color: #4c566a;
+  --accent: #88c0d0;
+}
+html[data-theme="monokai"] {
+  --bg-color: #272822;
+  --card-bg: #32332a;
+  --text-color: #f8f8f2;
+  --text-muted: #75715e;
+  --border-color: #3e3d32;
+  --accent: #a6e22e;
+}
+html[data-theme="gruvbox-dark"] {
+  --bg-color: #282828;
+  --card-bg: #3c3836;
+  --text-color: #ebdbb2;
+  --text-muted: #a89984;
+  --border-color: #504945;
+  --accent: #fabd2f;
+}
+html[data-theme="gruvbox-light"] {
+  --bg-color: #fbf1c7;
+  --card-bg: #f2e5bc;
+  --text-color: #3c3836;
+  --text-muted: #7c6f64;
+  --border-color: #d5c4a1;
+  --accent: #d79921;
+}
+/* 🌈 Neon Pulse - futuristisch, leuchtend, cyberpunk */
+html[data-theme="neon-pulse"] {
+  --bg-color: #0a0a0f;
+  --card-bg: #11111a;
+  --text-color: #e2e2ff;
+  --text-muted: #7a7a99;
+  --border-color: #1f1f2e;
+  --accent: #ff00e6;
+}
+/* 🌅 Sunset Fade - warm, modern, weiche Übergänge */
+html[data-theme="sunset-fade"] {
+  --bg-color: #fff4e8;
+  --card-bg: #fff9f2;
+  --text-color: #3b2f2f;
+  --text-muted: #7a6a6a;
+  --border-color: #f0d9c2;
+  --accent: #ff7b4a;
+}
+/* 🟣 Hyper Lavender - modern, soft, stylish */
+html[data-theme="hyper-lavender"] {
+  --bg-color: #f5f2fa;
+  --card-bg: #ffffff;
+  --text-color: #2d233d;
+  --text-muted: #6f6580;
+  --border-color: #e3dff0;
+  --accent: #b47cff;
+}
+/* 🟩 Mint Circuit - frisch, techy, clean */
+html[data-theme="mint-circuit"] {
+  --bg-color: #e8fff7;
+  --card-bg: #f9fcf3;
+  --text-color: #1a2f2b;
+  --text-muted: #5f7a75;
+  --border-color: #cde7df;
+  --accent: #00c896;
+}
+/* 🔥 Ember Dark - dunkel, warm, edel */
+html[data-theme="ember-dark"] {
+  --bg-color: #1a1412;
+  --card-bg: #221c19;
+  --text-color: #f2e6d9;
+  --text-muted: #a89c93;
+  --border-color: #3a2f2b;
+  --accent: #ff6a3d;
+}
+/* Deep Ocean - dunkel, ruhig, modern */
+html[data-theme="deep-ocean"] {
+  --bg-color: #0d1b2a;
+  --card-bg: #1b263b;
+  --text-color: #e0e6ef;
+  --text-muted: #8fa3bf;
+  --border-color: #2e3f55;
+  --accent: #4cc3ff;
+}
+/* Cloudline - hell, ultramodern, Apple-like */
+html[data-theme="cloudline"] {
+  --bg-color: #f7f9fb;
+  --card-bg: #ffffff;
+  --text-color: #1c1f22;
+  --text-muted: #6c737c;
+  --border-color: #e1e6eb;
+  --accent: #4d7cff;
+}
+/* Vaporwave - retro-modern, poppig, ausgefallen */
+html[data-theme="vaporwave"] {
+  --bg-color: #f2e9ff;
+  --card-bg: #ffffff;
+  --text-color: #2b1f3a;
+  --text-muted: #7a6a8f;
+  --border-color: #e3d6f7;
+  --accent: #ff6ad5;
+}
+/* Crimson Void - dunkel, mystisch, edel */
+html[data-theme="crimson-void"] {
+  --bg-color: #12070a;
+  --card-bg: #1c0b10;
+  --text-color: #f5e8ea;
+  --text-muted: #a88a92;
+  --border-color: #2e1a20;
+  --accent: #ff2e5f;
+}
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.gallery-logo {
+  display: block;
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.uniform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.masto-content a {
+  color: var(--accent) !important;
+  text-decoration: none !important;
+  word-break: break-all;
+}
+.masto-content a:hover {
+  text-decoration: underline !important;
+}
+
+.clickable-card {
+  cursor: pointer;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    var(--border-color) 50%,
+    var(--card-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.heart {
+  color: #ff4d6d;
+  animation: heartbeat 1.3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heartbeat {
+  0%,
+  30%,
+  100% {
+    transform: scale(1);
+  }
+
+  6% {
+    transform: scale(1.15);
+  }
+  12% {
+    transform: scale(0.98);
+  }
+
+  18% {
+    transform: scale(1.1);
+  }
+  24% {
+    transform: scale(1);
+  }
+}
