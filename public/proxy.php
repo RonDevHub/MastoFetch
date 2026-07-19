@@ -2,7 +2,7 @@
 // Strenger Datenschutz-Proxy für lokale Medien-Dateien
 $file = $_GET['file'] ?? '';
 
-if (empty($file) || !preg_with('/^[a-zA-Z0-9_\-]+\.[a-zA-Z0-9]+$/', $file)) {
+if (empty($file) || !preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z0-9]+$/', $file)) {
     header("HTTP/1.1 400 Bad Request");
     exit('Ungültige Anfrage.');
 }
