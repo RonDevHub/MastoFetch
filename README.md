@@ -30,6 +30,7 @@ MastoFetch/
 │   ├── data/               # JSON-Caches und ID-Zuordnungen
 │   └── media/              # Lokal gespiegelte Avatare und Beitragsbilder
 └── public/
+    ├── assets/             # CSS & JS für Themes und Funktionen
     ├── .htaccess           # Zugriffsschutz für sensible Systembereiche
     ├── api.php             # Gehärtete API-Endpunkt für Widget-Daten
     ├── proxy.php           # Sicherer Medien-Proxy gegen Trackingschutz
