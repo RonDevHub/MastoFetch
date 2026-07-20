@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="public/assets/logo/MastoFetch.png" height="50"><br>MastoFetch
+  <img src="public/assets/logo/MastoFetch.png" height="80"><br>MastoFetch
 </h1>
 <div align="center">
 
