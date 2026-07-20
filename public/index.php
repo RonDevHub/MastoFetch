@@ -19,11 +19,10 @@ $baseUrl = $protocol . $host . $currentDir;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MastoFetch Dashboard</title>
-    <link rel="icon" type="image/png" href="assets/logo/MastoFetch.png">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="icon" type="image/png" href="/assets/logo/MastoFetch.png">
+    <link rel="stylesheet" href="/assets/style.css">
     <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="/assets/alpine.js"></script>
 </head>
 
 <body class="h-full text-neutral-200 antialiased font-sans">
