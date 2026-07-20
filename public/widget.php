@@ -45,7 +45,7 @@ $mastoCache = new MastoCache();
 $isExpired = $mastoCache->isCacheExpiredForWidget($widget, $config['accounts']);
 $feedData = [];
 
-// Wir laden die Daten initial, sofern der Cache noch gültig ist
+// Laden der Daten initial, sofern der Cache noch gültig ist
 if (!$isExpired) {
     $feedData = $mastoCache->getWidgetData($widget, $config['accounts'], false);
 }
@@ -58,25 +58,8 @@ if (!$isExpired) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($widget['title']); ?></title>
     <link rel="icon" type="image/png" href="/assets/logo/MastoFetch.png">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            light: '#5856d6',
-                            dark: '#8c8dff'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Externe CSS für Themes und Layout-Klassen (Absoluter Pfad vom Root) -->
-    <link rel="stylesheet" href="/assets/widget.css">
+    <link rel="stylesheet" href="/assets/widget-themes.css">
+    <link rel="stylesheet" href="/assets/widget-tailwind.css">
 </head>
 
 <body class="h-screen flex flex-col overflow-hidden font-sans antialiased p-4">
@@ -196,7 +179,7 @@ if (!$isExpired) {
 
     <!-- Fester Footer (Nicht scrollbar) -->
     <div class="flex-none text-center mt-4 pt-4 border-t border-[var(--border-color)] text-xs text-[var(--text-muted)]">
-        Powered by <a href="https://commitcloud.net/RonDevHub/MastoFetch" class="hover:text-[var(--accent)] font-semibold transition-colors" target="_blank" onclick="event.stopPropagation();">MastoFetch</a> |
+        Powered by <a href="https://codeberg.org/RonDevHub/MastoFetch" class="hover:text-[var(--accent)] font-semibold transition-colors" target="_blank" onclick="event.stopPropagation();">MastoFetch</a> |
         <a href="https://rondev.de/donate" class="inline-flex items-center gap-1 hover:text-[var(--accent)] transition-colors align-middle" target="_blank" onclick="event.stopPropagation();">
             <svg class="heart fill-current" height="14" width="14" viewBox="0 0 540 540" aria-hidden="true">
                 <path d="M308.2 488.2L494.4 302c29.2-29.2 45.6-68.9 45.6-110.2 0-86.1-69.8-155.8-155.8-155.8-41.3 0-81 16.4-110.2 45.6-2.2 2.2-5.8 2.2-8 0-29.2-29.2-68.9-45.6-110.2-45.6-86.1 0-155.8 69.8-155.8 155.8 0 41.3 16.4 81 45.6 110.2L231.8 488.2c21.1 21.1 55.3 21.1 76.4 0zM54 191.8c0 7.5-6 13.5-13.5 13.5S27 199.3 27 191.8c0-71.1 57.7-128.8 128.8-128.8 7.5 0 13.5 6 13.5 13.5S163.3 90 155.8 90C99.6 90 54 135.6 54 191.8zm258.2-72c-11.6 11.6-26.9 17.5-42.2 17.5-7.5 0-13.5-6-13.5-13.5s6-13.5 13.5-13.5c8.4 0 16.7-3.2 23.1-9.6 24.2-24.2 56.9-37.7 91.1-37.7 7.5 0 13.5 6 13.5 13.5S391.6 90 384.2 90c-27 0-52.9 10.7-72 29.8z" />
