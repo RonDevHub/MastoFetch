@@ -1,4 +1,15 @@
-# MastoFetch
+<h1 align="center">
+  <img src="public/assets/logo/MastoFetch.png" height="50"><br>MastoFetch
+</h1>
+<div align="center">
+
+![Created](https://mini-badges.rondev.de/forgejo/RonDevHub/MastoFetch/created-at/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/forgejo/RonDevHub/MastoFetch/lastcommit/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/stars/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/issues/*/*/en) ![GitHub Repo language](https://mini-badges.rondev.de/forgejo/RonDevHub/MastoFetch/language/*/*/en) ![GitHub Repo license](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/license/*/*/en) ![GitHub Repo release](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/release/*/*/en) ![GitHub Repo release](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/forks/*/*/en) ![GitHub Repo downlods](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/downloads/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/watchers) [![status-badge](https://ci.commitcloud.net/api/badges/13/status.svg)](https://ci.commitcloud.net/repos/16) 
+
+[![Buy me a coffee](https://mini-badges.rondev.de/icon/cuptogo/Buy_me_a_Coffee-c1d82f-222/for-the-badge "Buy me a coffee")](https://www.buymeacoffee.com/RonDev)
+[![Buy me a coffee](https://mini-badges.rondev.de/icon/cuptogo/ko--fi.com-c1d82f-222/for-the-badge "Buy me a coffee")](https://ko-fi.com/U6U31EV2VS)
+[![Pizza Power](https://mini-badges.rondev.de/icon/paypal/PayPal/for-the-badge "Pizza Power")](https://www.paypal.com/donate/?hosted_button_id=PWY939TPCQ3RA)
+</div>
+<hr>
 
 MastoFetch ist ein leichtgewichtiges, ressourcensparendes und datenschutzkonformes Widget in Vanilla-PHP, um chronologische Feeds von mehreren Mastodon-Accounts zu aggregieren und in einer ansprechenden Masonry-Grid-Ansicht darzustellen. 
 
