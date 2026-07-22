@@ -49,6 +49,54 @@ $feedData = [];
 if (!$isExpired) {
     $feedData = $mastoCache->getWidgetData($widget, $config['accounts'], false);
 }
+
+function getVisibilityIcon(string $visibility): array {
+    return match ($visibility) {
+        'public' => [
+            'label' => 'Öffentlich',
+            'svg'   => '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M256 464C141.1 464 48 370.9 48 256S141.1 48 256 48c3.5 0 6.9 .1 10.3 .3L232.5 73.6c-5.4 4-8.5 10.4-8.5 17.1l0 9.1c0 6.8 5.5 12.3 12.3 12.3 2.4 0 4.8-.7 6.8-2.1l41.8-27.9c2-1.3 4.4-2.1 6.8-2.1l1 0c6.2 0 11.3 5.1 11.3 11.3 0 3-1.2 5.9-3.3 8l-19.9 19.9c-5.8 5.8-12.9 10.2-20.7 12.8l-26.5 8.8c-5.8 1.9-9.6 7.3-9.6 13.4 0 3.7-1.5 7.3-4.1 10l-17.9 17.9c-6.4 6.4-9.9 15-9.9 24l0 4.3c0 16.4 13.6 29.7 29.9 29.7 11 0 21.2-6.2 26.1-16l4-8.1c2.4-4.8 7.4-7.9 12.8-7.9 4.5 0 8.7 2.1 11.4 5.7l16.3 21.7c2.1 2.9 5.5 4.5 9.1 4.5 8.4 0 13.9-8.9 10.1-16.4l-1.1-2.3c-3.5-7 0-15.5 7.5-18l21.2-7.1c7.6-2.5 12.7-9.6 12.7-17.6 0-10.3 8.3-18.6 18.6-18.6l29.4 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-20.7 0c-7.2 0-14.2 2.9-19.3 8l-4.7 4.7c-2.1 2.1-3.3 5-3.3 8 0 6.2 5.1 11.3 11.3 11.3l11.3 0c6 0 11.8 2.4 16 6.6l6.5 6.5c1.8 1.8 2.8 4.3 2.8 6.8s-1 5-2.8 6.8l-7.5 7.5C386 262 384 266.9 384 272s2 10 5.7 13.7L408 304c10.2 10.2 24.1 16 38.6 16l7.3 0c-4.1 12.6-9.3 24.7-15.6 36.1-3.7-2.6-8.2-4.1-13-4.1-6 0-11.8-2.4-16-6.6L396 332c-7.7-7.7-18-12-28.9-12-9.7 0-19.2-3.5-26.6-9.8L314 287.4c-11.6-9.9-26.4-15.4-41.6-15.4l-20.9 0c-12.6 0-25 3.7-35.5 10.7L188.5 301c-17.8 11.9-28.5 31.9-28.5 53.3l0 3.2c0 17 6.7 33.3 18.7 45.3l16 16c8.5 8.5 20 13.3 32 13.3l21.3 0c13.3 0 24 10.7 24 24 0 2.5 .4 5 1.1 7.3-5.7 .5-11.4 .7-17.1 .7zm0 48a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM187.3 123.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-32 32c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l32-32z"/></svg>'
+        ],
+        'unlisted' => [
+            'label' => 'Nicht gelistet (Öffentlich still)',
+            'svg'   => '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M239.3 48.7c-107.1 8.5-191.3 98.1-191.3 207.3 0 114.9 93.1 208 208 208 33.3 0 64.7-7.8 92.6-21.7-103.4-23.4-180.6-115.8-180.6-226.3 0-65.8 27.4-125.1 71.3-167.3zM0 256c0-141.4 114.6-256 256-256 19.4 0 38.4 2.2 56.7 6.3 9.9 2.2 17.3 10.5 18.5 20.5s-4 19.8-13.1 24.4c-60.6 30.2-102.1 92.7-102.1 164.8 0 101.6 82.4 184 184 184 5 0 9.9-.2 14.8-.6 10.1-.8 19.6 4.8 23.8 14.1s2 20.1-5.3 27.1C387.3 484.8 324.8 512 256 512 114.6 512 0 397.4 0 256z"/></svg>'
+        ],
+        default => [
+            'label' => 'Öffentlich',
+            'svg'   => '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M256 464C141.1 464 48 370.9 48 256S141.1 48 256 48c3.5 0 6.9 .1 10.3 .3L232.5 73.6c-5.4 4-8.5 10.4-8.5 17.1l0 9.1c0 6.8 5.5 12.3 12.3 12.3 2.4 0 4.8-.7 6.8-2.1l41.8-27.9c2-1.3 4.4-2.1 6.8-2.1l1 0c6.2 0 11.3 5.1 11.3 11.3 0 3-1.2 5.9-3.3 8l-19.9 19.9c-5.8 5.8-12.9 10.2-20.7 12.8l-26.5 8.8c-5.8 1.9-9.6 7.3-9.6 13.4 0 3.7-1.5 7.3-4.1 10l-17.9 17.9c-6.4 6.4-9.9 15-9.9 24l0 4.3c0 16.4 13.6 29.7 29.9 29.7 11 0 21.2-6.2 26.1-16l4-8.1c2.4-4.8 7.4-7.9 12.8-7.9 4.5 0 8.7 2.1 11.4 5.7l16.3 21.7c2.1 2.9 5.5 4.5 9.1 4.5 8.4 0 13.9-8.9 10.1-16.4l-1.1-2.3c-3.5-7 0-15.5 7.5-18l21.2-7.1c7.6-2.5 12.7-9.6 12.7-17.6 0-10.3 8.3-18.6 18.6-18.6l29.4 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-20.7 0c-7.2 0-14.2 2.9-19.3 8l-4.7 4.7c-2.1 2.1-3.3 5-3.3 8 0 6.2 5.1 11.3 11.3 11.3l11.3 0c6 0 11.8 2.4 16 6.6l6.5 6.5c1.8 1.8 2.8 4.3 2.8 6.8s-1 5-2.8 6.8l-7.5 7.5C386 262 384 266.9 384 272s2 10 5.7 13.7L408 304c10.2 10.2 24.1 16 38.6 16l7.3 0c-4.1 12.6-9.3 24.7-15.6 36.1-3.7-2.6-8.2-4.1-13-4.1-6 0-11.8-2.4-16-6.6L396 332c-7.7-7.7-18-12-28.9-12-9.7 0-19.2-3.5-26.6-9.8L314 287.4c-11.6-9.9-26.4-15.4-41.6-15.4l-20.9 0c-12.6 0-25 3.7-35.5 10.7L188.5 301c-17.8 11.9-28.5 31.9-28.5 53.3l0 3.2c0 17 6.7 33.3 18.7 45.3l16 16c8.5 8.5 20 13.3 32 13.3l21.3 0c13.3 0 24 10.7 24 24 0 2.5 .4 5 1.1 7.3-5.7 .5-11.4 .7-17.1 .7zm0 48a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM187.3 123.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-32 32c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l32-32z"/></svg>'
+        ]
+    };
+}
+
+function formatMastoTime(string $isoDate): array {
+    $timestamp = strtotime($isoDate);
+    $diff = time() - $timestamp;
+
+    if ($diff < 0) {
+        $diff = 0;
+    }
+
+    if ($diff < 60) {
+        $relative = $diff . ' Sek.';
+    } elseif ($diff < 3600) {
+        $relative = floor($diff / 60) . ' Min.';
+    } elseif ($diff < 86400) {
+        $relative = floor($diff / 3600) . ' Std.';
+    } elseif ($diff < 604800) { // Unter 7 Tage
+        $relative = floor($diff / 86400) . ' T.';
+    } else {
+        // Älter als 7 Tage -> z. B. "22. Jul."
+        $months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+        $monthName = $months[(int)date('n', $timestamp) - 1];
+        $relative = date('j', $timestamp) . '. ' . $monthName;
+    }
+
+    $fullTooltip = date('d.m.Y, H:i', $timestamp) . ' Uhr';
+
+    return [
+        'relative' => $relative,
+        'full'     => $fullTooltip
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="de" class="h-full overflow-hidden" data-theme="<?php echo $theme; ?>">
@@ -111,15 +159,38 @@ if (!$isExpired) {
                                 </div>
                             <?php endif; ?>
 
+                            <?php 
+                            $timeData = formatMastoTime($item['created_at']); 
+                            $visData  = getVisibilityIcon($item['visibility'] ?? 'public');
+                            ?>
+
                             <!-- Author Header -->
-                            <div class="flex items-center gap-3" onclick="event.stopPropagation();">
-                                <a href="<?php echo htmlspecialchars($item['account']['url']); ?>" target="_blank" class="flex-none">
-                                    <img class="h-9 w-9 rounded-full object-cover ring-1 ring-[var(--border-color)]" src="/proxy.php?file=<?php echo urlencode($item['account']['avatar']); ?>">
-                                </a>
-                                <a class="flex flex-col text-sm no-underline hover:underline text-[var(--text-color)]" href="<?php echo htmlspecialchars($item['account']['url']); ?>" target="_blank">
-                                    <span class="font-semibold leading-none"><?php echo htmlspecialchars($item['account']['display_name']); ?></span>
-                                    <span class="text-xs text-[var(--text-muted)] mt-0.5">@<?php echo htmlspecialchars($item['account']['username']); ?></span>
-                                </a>
+                            <div class="flex items-center justify-between gap-3" onclick="event.stopPropagation();">
+                                <div class="flex items-center gap-3">
+                                    <a href="<?php echo htmlspecialchars($item['account']['url']); ?>" target="_blank" class="flex-none">
+                                        <img class="h-9 w-9 rounded-full object-cover ring-1 ring-[var(--border-color)]" src="/proxy.php?file=<?php echo urlencode($item['account']['avatar']); ?>">
+                                    </a>
+                                    <a class="flex flex-col text-sm no-underline hover:underline text-[var(--text-color)]" href="<?php echo htmlspecialchars($item['account']['url']); ?>" target="_blank">
+                                        <span class="font-semibold leading-none"><?php echo htmlspecialchars($item['account']['display_name']); ?></span>
+                                        <span class="text-xs text-[var(--text-muted)] mt-0.5">@<?php echo htmlspecialchars($item['account']['username']); ?></span>
+                                    </a>
+                                </div>
+
+                                <!-- Rechtsbündiger Bereich für Sichtbarkeits-Icon & Zeitstempel -->
+                                <div class="flex items-center gap-1.5 text-xs text-[var(--text-muted)] flex-none">
+                                    
+                                    <!-- Zeitstempel mit Tooltip -->
+                                    <a href="<?php echo htmlspecialchars($item['url']); ?>" 
+                                       target="_blank" 
+                                       title="<?php echo htmlspecialchars($timeData['full']); ?>" 
+                                       class="hover:underline text-[var(--text-muted)]">
+                                        <?php echo htmlspecialchars($timeData['relative']); ?>
+                                    </a>
+                                    <!-- Sichtbarkeits-Icon mit Tooltip -->
+                                    <span title="<?php echo htmlspecialchars($visData['label']); ?>" class="inline-flex items-center opacity-70 hover:opacity-100 cursor-help">
+                                        <?php echo $visData['svg']; ?>
+                                    </span>
+                                </div>
                             </div>
 
                             <!-- Content -->
@@ -191,6 +262,69 @@ if (!$isExpired) {
     <script>
         const allowedUsernames = <?php echo json_encode($allowedUsernames); ?>;
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function getVisibilityIconJs(visibility) {
+            switch (visibility) {
+                case 'unlisted':
+                    return {
+                        label: 'Nicht gelistet (Öffentlich still)',
+                        svg: '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M239.3 48.7c-107.1 8.5-191.3 98.1-191.3 207.3 0 114.9 93.1 208 208 208 33.3 0 64.7-7.8 92.6-21.7-103.4-23.4-180.6-115.8-180.6-226.3 0-65.8 27.4-125.1 71.3-167.3zM0 256c0-141.4 114.6-256 256-256 19.4 0 38.4 2.2 56.7 6.3 9.9 2.2 17.3 10.5 18.5 20.5s-4 19.8-13.1 24.4c-60.6 30.2-102.1 92.7-102.1 164.8 0 101.6 82.4 184 184 184 5 0 9.9-.2 14.8-.6 10.1-.8 19.6 4.8 23.8 14.1s2 20.1-5.3 27.1C387.3 484.8 324.8 512 256 512 114.6 512 0 397.4 0 256z"/></svg>'
+                    };
+                case 'public':
+                default:
+                    return {
+                        label: 'Öffentlich',
+                        svg: '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M256 464C141.1 464 48 370.9 48 256S141.1 48 256 48c3.5 0 6.9 .1 10.3 .3L232.5 73.6c-5.4 4-8.5 10.4-8.5 17.1l0 9.1c0 6.8 5.5 12.3 12.3 12.3 2.4 0 4.8-.7 6.8-2.1l41.8-27.9c2-1.3 4.4-2.1 6.8-2.1l1 0c6.2 0 11.3 5.1 11.3 11.3 0 3-1.2 5.9-3.3 8l-19.9 19.9c-5.8 5.8-12.9 10.2-20.7 12.8l-26.5 8.8c-5.8 1.9-9.6 7.3-9.6 13.4 0 3.7-1.5 7.3-4.1 10l-17.9 17.9c-6.4 6.4-9.9 15-9.9 24l0 4.3c0 16.4 13.6 29.7 29.9 29.7 11 0 21.2-6.2 26.1-16l4-8.1c2.4-4.8 7.4-7.9 12.8-7.9 4.5 0 8.7 2.1 11.4 5.7l16.3 21.7c2.1 2.9 5.5 4.5 9.1 4.5 8.4 0 13.9-8.9 10.1-16.4l-1.1-2.3c-3.5-7 0-15.5 7.5-18l21.2-7.1c7.6-2.5 12.7-9.6 12.7-17.6 0-10.3 8.3-18.6 18.6-18.6l29.4 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-20.7 0c-7.2 0-14.2 2.9-19.3 8l-4.7 4.7c-2.1 2.1-3.3 5-3.3 8 0 6.2 5.1 11.3 11.3 11.3l11.3 0c6 0 11.8 2.4 16 6.6l6.5 6.5c1.8 1.8 2.8 4.3 2.8 6.8s-1 5-2.8 6.8l-7.5 7.5C386 262 384 266.9 384 272s2 10 5.7 13.7L408 304c10.2 10.2 24.1 16 38.6 16l7.3 0c-4.1 12.6-9.3 24.7-15.6 36.1-3.7-2.6-8.2-4.1-13-4.1-6 0-11.8-2.4-16-6.6L396 332c-7.7-7.7-18-12-28.9-12-9.7 0-19.2-3.5-26.6-9.8L314 287.4c-11.6-9.9-26.4-15.4-41.6-15.4l-20.9 0c-12.6 0-25 3.7-35.5 10.7L188.5 301c-17.8 11.9-28.5 31.9-28.5 53.3l0 3.2c0 17 6.7 33.3 18.7 45.3l16 16c8.5 8.5 20 13.3 32 13.3l21.3 0c13.3 0 24 10.7 24 24 0 2.5 .4 5 1.1 7.3-5.7 .5-11.4 .7-17.1 .7zm0 48a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM187.3 123.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-32 32c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l32-32z"/></svg>'
+                    };
+            }
+        }
+
+        function formatMastoTimeJs(isoDate) {
+            const date = new Date(isoDate);
+            const timestamp = date.getTime();
+            const now = Date.now();
+            let diff = Math.floor((now - timestamp) / 1000);
+
+            if (isNaN(diff) || diff < 0) {
+                diff = 0;
+            }
+
+            let relative = '';
+            if (diff < 60) {
+                relative = diff + ' Sek.';
+            } else if (diff < 3600) {
+                relative = Math.floor(diff / 60) + ' Min.';
+            } else if (diff < 86400) {
+                relative = Math.floor(diff / 3600) + ' Std.';
+            } else if (diff < 604800) {
+                relative = Math.floor(diff / 86400) + ' T.';
+            } else {
+                const months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+                relative = date.getDate() + '. ' + months[date.getMonth()];
+            }
+
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const fullTooltip = `${day}.${month}.${year}, ${hours}:${minutes} Uhr`;
+
+            return {
+                relative: relative,
+                full: fullTooltip
+            };
+        }
+
         function forceExternalLinks() {
             document.querySelectorAll('.masto-content a').forEach(link => {
                 link.setAttribute('target', '_blank');
@@ -219,26 +353,28 @@ if (!$isExpired) {
                             if (allowedUsernames.includes(origUsername) && !uniqueAvatars.includes(origUsername)) {
                                 uniqueAvatars.push(origUsername);
                                 avatarContainer.innerHTML += `
-                                    <a href="${item.account.url}" target="_blank" onclick="event.stopPropagation();" title="@${item.account.username}">
+                                    <a href="${escapeHtml(item.account.url)}" target="_blank" onclick="event.stopPropagation();" title="@${escapeHtml(item.account.username)}">
                                         <img class="inline-block h-8 w-8 rounded-full ring-2 ring-[var(--card-bg)] object-cover" src="/proxy.php?file=${encodeURIComponent(item.account.avatar)}">
                                     </a>`;
                             }
 
                             let mediaHtml = '';
-                            item.media_attachments.forEach(m => {
-                                mediaHtml += `<div class="mt-3 overflow-hidden rounded-lg border border-[var(--border-color)] max-h-60" onclick="event.stopPropagation();"><img class="w-full object-cover" src="/proxy.php?file=${encodeURIComponent(m.url)}"></div>`;
-                            });
+                            if (item.media_attachments) {
+                                item.media_attachments.forEach(m => {
+                                    mediaHtml += `<div class="overflow-hidden rounded-lg border border-[var(--border-color)] max-h-60" onclick="event.stopPropagation();"><img class="w-full object-cover" src="/proxy.php?file=${encodeURIComponent(m.url)}"></div>`;
+                                });
+                            }
 
                             let previewHtml = '';
                             if (item.link_preview) {
                                 let lpImg = item.link_preview.image ? `<img class="w-full h-36 object-cover" src="/proxy.php?file=${encodeURIComponent(item.link_preview.image)}">` : '';
-                                let lpDesc = item.link_preview.description ? `<p class="text-[11px] text-[var(--text-muted)] line-clamp-2 leading-snug">${item.link_preview.description}</p>` : '';
+                                let lpDesc = item.link_preview.description ? `<p class="text-[11px] text-[var(--text-muted)] line-clamp-2 leading-snug">${escapeHtml(item.link_preview.description)}</p>` : '';
 
                                 previewHtml = `
-                                    <a href="${item.link_preview.url}" target="_blank" class="block overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--bg-color)] hover:border-[var(--accent)] transition-colors duration-200 no-underline" onclick="event.stopPropagation();">
+                                    <a href="${escapeHtml(item.link_preview.url)}" target="_blank" class="block overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--bg-color)] hover:border-[var(--accent)] transition-colors duration-200 no-underline" onclick="event.stopPropagation();">
                                         ${lpImg}
                                         <div class="p-3 space-y-1">
-                                            <h4 class="text-xs font-semibold text-[var(--text-color)] line-clamp-1">${item.link_preview.title}</h4>
+                                            <h4 class="text-xs font-semibold text-[var(--text-color)] line-clamp-1">${escapeHtml(item.link_preview.title)}</h4>
                                             ${lpDesc}
                                         </div>
                                     </a>
@@ -252,26 +388,42 @@ if (!$isExpired) {
                                         <svg class="fill-current w-3.5 h-3.5 text-[var(--accent)]" viewBox="0 0 512 512" aria-hidden="true">
                                             <path d="M57 288l103.5 0c35.3 0 64 28.7 64 64l0 103.5c0 24.9 27.1 40.2 48.5 27.4L361.2 430c14.5-8.7 23.3-24.3 23.3-41.2l0-95C513.4 217.8 519.9 104.3 508.8 28.4 506.9 15.6 496.9 5.6 484.1 3.7 408.2-7.4 294.7-.9 218.6 128l-95 0c-16.9 0-32.5 8.8-41.2 23.3L29.6 239.5C16.8 260.9 32.1 288 57 288zM384.5 80a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM152.9 473.6c31.5-31.5 31.5-82.5 0-114s-82.5-31.5-114 0c-31.3 31.3-37.5 92-38.3 126.4-.4 14.6 11.2 26.2 25.9 25.9 34.5-.8 95.1-7 126.4-38.3zm-40.6-32c-10.1 10.1-28.5 13-41.3 13.7-8 .5-14.3-5.9-13.9-13.9 .7-12.8 3.7-31.2 13.7-41.3 11.4-11.4 30-11.4 41.4 0s11.4 30 0 41.4z"/>
                                         </svg>
-                                        <a href="${item.reblogged_by.url}" target="_blank" class="hover:underline font-semibold text-[var(--accent)]">
-                                            ${item.reblogged_by.display_name}
+                                        <a href="${escapeHtml(item.reblogged_by.url)}" target="_blank" class="hover:underline font-semibold text-[var(--accent)]">
+                                            ${escapeHtml(item.reblogged_by.display_name)}
                                         </a>
                                         <span>hat geteilt</span>
                                     </div>
                                 `;
                             }
 
+                            const timeDataJs = formatMastoTimeJs(item.created_at);
+                            const visDataJs = getVisibilityIconJs(item.visibility || 'public');
+                            
                             grid.innerHTML += `
-                                <div onclick="window.open('${item.url}', '_blank')" class="clickable-card flex flex-col justify-between bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200 h-full">
+                                <div onclick="window.open('${escapeHtml(item.url)}', '_blank')" class="clickable-card flex flex-col justify-between bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200 h-full">
                                     <div class="space-y-3">
                                         ${reblogHtml}
-                                        <div class="flex items-center gap-3" onclick="event.stopPropagation();">
-                                            <a href="${item.account.url}" target="_blank" class="flex-none">
-                                                <img class="h-9 w-9 rounded-full object-cover ring-1 ring-[var(--border-color)]" src="/proxy.php?file=${encodeURIComponent(item.account.avatar)}">
-                                            </a>
-                                            <a class="flex flex-col text-sm no-underline hover:underline text-[var(--text-color)]" href="${item.account.url}" target="_blank">
-                                                <span class="font-semibold leading-none">${item.account.display_name}</span>
-                                                <span class="text-xs text-[var(--text-muted)] mt-0.5">@${item.account.username}</span>
-                                            </a>
+                                        <div class="flex items-center justify-between gap-3" onclick="event.stopPropagation();">
+                                            <div class="flex items-center gap-3">
+                                                <a href="${escapeHtml(item.account.url)}" target="_blank" class="flex-none">
+                                                    <img class="h-9 w-9 rounded-full object-cover ring-1 ring-[var(--border-color)]" src="/proxy.php?file=${encodeURIComponent(item.account.avatar)}">
+                                                </a>
+                                                <a class="flex flex-col text-sm no-underline hover:underline text-[var(--text-color)]" href="${escapeHtml(item.account.url)}" target="_blank">
+                                                    <span class="font-semibold leading-none">${escapeHtml(item.account.display_name)}</span>
+                                                    <span class="text-xs text-[var(--text-muted)] mt-0.5">@${escapeHtml(item.account.username)}</span>
+                                                </a>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 text-xs text-[var(--text-muted)] flex-none">
+                                                <a href="${escapeHtml(item.url)}" 
+                                                   target="_blank" 
+                                                   title="${escapeHtml(timeDataJs.full)}" 
+                                                   class="hover:underline text-[var(--text-muted)]">
+                                                    ${escapeHtml(timeDataJs.relative)}
+                                                </a>
+                                                <span title="${escapeHtml(visDataJs.label)}" class="inline-flex items-center opacity-70 hover:opacity-100 cursor-help">
+                                                    ${visDataJs.svg}
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="masto-content text-sm leading-relaxed text-[var(--text-color)] break-words">
                                             ${item.content}
