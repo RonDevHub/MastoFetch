@@ -1,11 +1,9 @@
 <?php
 
-class MastoAPI
-{
+class MastoAPI {
     private array $env = [];
 
-    public function __construct()
-    {
+    public function __construct() {
         $envPath = __DIR__ . '/../.env';
         if (file_exists($envPath)) {
             $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -19,24 +17,22 @@ class MastoAPI
         }
     }
 
-    private function getToken(string $instance, string $accountKey): ?string
-    {
-        // Option 1: Account-spezifisches Token (z.B. MASTO_TOKEN_USER1_MAIN)
+    private function getToken(string $instance, string $accountKey): ?string {
+        // Option 1: Account-spezifisches Token (z.B. MASTO_TOKEN_USER_MAIN)
         $accountSpecificKey = 'MASTO_TOKEN_' . strtoupper(str_replace('-', '_', $accountKey));
         if (isset($this->env[$accountSpecificKey])) {
             return $this->env[$accountSpecificKey];
         }
-
-        // Option 2: Instanz-spezifisches Token (z.B. MASTO_TOKEN_USER2_MAIN)
+        
+        // Option 2: Instanz-spezifisches Token (z.B. MASTO_TOKEN_MASTODON_SOCIAL)
         $instanceKey = 'MASTO_TOKEN_' . strtoupper(str_replace('.', '_', $instance));
         return $this->env[$instanceKey] ?? getenv($accountSpecificKey) ?: (getenv($instanceKey) ?: null);
     }
 
-    public function getAccountId(string $instance, string $username, string $accountKey): ?string
-    {
+    public function getAccountId(string $instance, string $username, string $accountKey): ?string {
         $token = $this->getToken($instance, $accountKey);
         $url = "https://{$instance}/api/v1/accounts/lookup?acct=" . urlencode($username);
-
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, 'MastoFetch/1.0');
@@ -44,7 +40,7 @@ class MastoAPI
         if ($token) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer {$token}"]);
         }
-
+        
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
@@ -56,11 +52,11 @@ class MastoAPI
         return null;
     }
 
-    public function fetchStatuses(string $instance, string $accountId, int $limit, string $accountKey): array
-    {
+    public function fetchStatuses(string $instance, string $accountId, int $limit, string $accountKey): array {
         $token = $this->getToken($instance, $accountKey);
-        $url = "https://{$instance}/api/v1/accounts/{$accountId}/statuses?limit={$limit}&exclude_reblogs=false";
-
+        // exclude_replies=true schließt direkte Antworten/Erwähnungen direkt serverseitig aus
+        $url = "https://{$instance}/api/v1/accounts/{$accountId}/statuses?limit={$limit}&exclude_reblogs=false&exclude_replies=true";
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, 'MastoFetch/1.0');
@@ -68,7 +64,7 @@ class MastoAPI
         if ($token) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer {$token}"]);
         }
-
+        
         $response = curl_exec($ch);
         curl_close($ch);
 
