@@ -13,11 +13,18 @@
   },
   "widgets": {
     "my_widget": {
-      "title": "Mein Mastodon Feed",
+      "title": "Meine Mastodon Feed´s",
       "accounts": ["user1_main", "tech_news"],
       "theme": "dark",
       "limit": 15,
       "cache_ttl": 900
+    },
+    "my_other_widget": {
+      "title": "Mein Mastodon Feed",
+      "accounts": ["user1_main"],
+      "theme": "solarized",
+      "limit": 10,
+      "cache_ttl": 500
     }
   }
 }
