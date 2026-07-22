@@ -2,21 +2,23 @@
 // Explizite und sichere Einbindung der API-Klasse für die statische Code-Analyse
 require_once __DIR__ . '/MastoAPI.php';
 
-class MastoCache {
+class MastoCache
+{
     private string $dataDir = __DIR__ . '/../storage/data/';
     private string $mediaDir = __DIR__ . '/../storage/media/';
     private MastoAPI $api;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->api = new MastoAPI();
-        
+
         // Verzeichnisse anlegen und Berechtigungskontext abfangen
         if (!is_dir($this->dataDir)) {
             if (!@mkdir($this->dataDir, 0755, true) && !is_dir($this->dataDir)) {
                 error_log("MastoFetch Error: Verzeichnis kann nicht erstellt werden: " . $this->dataDir);
             }
         }
-        
+
         if (!is_dir($this->mediaDir)) {
             if (!@mkdir($this->mediaDir, 0755, true) && !is_dir($this->mediaDir)) {
                 error_log("MastoFetch Error: Verzeichnis kann nicht erstellt werden: " . $this->mediaDir);
@@ -24,14 +26,15 @@ class MastoCache {
         }
     }
 
-    public function getWidgetData(array $widgetConfig, array $allAccounts, bool $forceRefresh = false): array {
+    public function getWidgetData(array $widgetConfig, array $allAccounts, bool $forceRefresh = false): array
+    {
         $combinedFeed = [];
         $cacheTtl = $widgetConfig['cache_ttl'] ?? 900;
         $limit = $widgetConfig['limit'] ?? 10;
 
         foreach ($widgetConfig['accounts'] as $accountKey) {
             if (!isset($allAccounts[$accountKey])) continue;
-            
+
             $acc = $allAccounts[$accountKey];
             $cacheFile = $this->dataDir . "cache_{$accountKey}.json";
             $isExpired = !file_exists($cacheFile) || (time() - filemtime($cacheFile) > $cacheTtl);
@@ -48,16 +51,17 @@ class MastoCache {
             }
         }
 
-        usort($combinedFeed, function($a, $b) {
+        usort($combinedFeed, function ($a, $b) {
             return strtotime($b['created_at']) <=> strtotime($a['created_at']);
         });
 
         return array_slice($combinedFeed, 0, $limit);
     }
 
-    private function refreshAccountCache(string $accountKey, array $acc, string $cacheFile, int $limit): void {
+    private function refreshAccountCache(string $accountKey, array $acc, string $cacheFile, int $limit): void
+    {
         $idFile = $this->dataDir . "id_{$accountKey}.txt";
-        
+
         // Sicherheitsprüfung gegen Errno 21 (Falls Pfad fälschlicherweise ein Ordner ist)
         $accountId = '';
         if (file_exists($idFile) && !is_dir($idFile)) {
@@ -144,7 +148,8 @@ class MastoCache {
         }
     }
 
-    private function extractLinkPreview(string $htmlContent): ?array {
+    private function extractLinkPreview(string $htmlContent): ?array
+    {
         preg_match_all('/<a[^>]+href="([^"]+)"[^>]*>/i', $htmlContent, $matches);
         if (empty($matches[1])) return null;
 
@@ -202,9 +207,10 @@ class MastoCache {
         return null;
     }
 
-    private function downloadMedia(string $url, string $filename): string {
+    private function downloadMedia(string $url, string $filename): string
+    {
         if (empty($url)) return '';
-        
+
         if (!$this->isValidPublicUrl($url)) {
             return '';
         }
@@ -214,7 +220,7 @@ class MastoCache {
         if (!in_array(strtolower($ext), ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'])) {
             $ext = 'png';
         }
-        
+
         $fullFilename = $filename . '.' . $ext;
         $localPath = $this->mediaDir . $fullFilename;
 
@@ -232,7 +238,8 @@ class MastoCache {
         return $fullFilename;
     }
 
-    public function isCacheExpiredForWidget(array $widgetConfig, array $allAccounts): bool {
+    public function isCacheExpiredForWidget(array $widgetConfig, array $allAccounts): bool
+    {
         $cacheTtl = $widgetConfig['cache_ttl'] ?? 900;
         foreach ($widgetConfig['accounts'] as $accountKey) {
             if (!isset($allAccounts[$accountKey])) continue;
@@ -244,7 +251,8 @@ class MastoCache {
         return false;
     }
 
-    private function isValidPublicUrl(string $url): bool {
+    private function isValidPublicUrl(string $url): bool
+    {
         $parts = parse_url($url);
         if (!$parts || empty($parts['host'])) {
             return false;
