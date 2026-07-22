@@ -50,7 +50,8 @@ if (!$isExpired) {
     $feedData = $mastoCache->getWidgetData($widget, $config['accounts'], false);
 }
 
-function getVisibilityIcon(string $visibility): array {
+function getVisibilityIcon(string $visibility): array
+{
     return match ($visibility) {
         'public' => [
             'label' => 'Öffentlich',
@@ -67,7 +68,8 @@ function getVisibilityIcon(string $visibility): array {
     };
 }
 
-function formatMastoTime(string $isoDate): array {
+function formatMastoTime(string $isoDate): array
+{
     $timestamp = strtotime($isoDate);
     $diff = time() - $timestamp;
 
@@ -159,8 +161,8 @@ function formatMastoTime(string $isoDate): array {
                                 </div>
                             <?php endif; ?>
 
-                            <?php 
-                            $timeData = formatMastoTime($item['created_at']); 
+                            <?php
+                            $timeData = formatMastoTime($item['created_at']);
                             $visData  = getVisibilityIcon($item['visibility'] ?? 'public');
                             ?>
 
@@ -178,12 +180,12 @@ function formatMastoTime(string $isoDate): array {
 
                                 <!-- Rechtsbündiger Bereich für Sichtbarkeits-Icon & Zeitstempel -->
                                 <div class="flex items-center gap-1.5 text-xs text-[var(--text-muted)] flex-none">
-                                    
+
                                     <!-- Zeitstempel mit Tooltip -->
-                                    <a href="<?php echo htmlspecialchars($item['url']); ?>" 
-                                       target="_blank" 
-                                       title="<?php echo htmlspecialchars($timeData['full']); ?>" 
-                                       class="hover:underline text-[var(--text-muted)]">
+                                    <a href="<?php echo htmlspecialchars($item['url']); ?>"
+                                        target="_blank"
+                                        title="<?php echo htmlspecialchars($timeData['full']); ?>"
+                                        class="hover:underline text-[var(--text-muted)]">
                                         <?php echo htmlspecialchars($timeData['relative']); ?>
                                     </a>
                                     <!-- Sichtbarkeits-Icon mit Tooltip -->
@@ -277,13 +279,13 @@ function formatMastoTime(string $isoDate): array {
                 case 'unlisted':
                     return {
                         label: 'Nicht gelistet (Öffentlich still)',
-                        svg: '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M239.3 48.7c-107.1 8.5-191.3 98.1-191.3 207.3 0 114.9 93.1 208 208 208 33.3 0 64.7-7.8 92.6-21.7-103.4-23.4-180.6-115.8-180.6-226.3 0-65.8 27.4-125.1 71.3-167.3zM0 256c0-141.4 114.6-256 256-256 19.4 0 38.4 2.2 56.7 6.3 9.9 2.2 17.3 10.5 18.5 20.5s-4 19.8-13.1 24.4c-60.6 30.2-102.1 92.7-102.1 164.8 0 101.6 82.4 184 184 184 5 0 9.9-.2 14.8-.6 10.1-.8 19.6 4.8 23.8 14.1s2 20.1-5.3 27.1C387.3 484.8 324.8 512 256 512 114.6 512 0 397.4 0 256z"/></svg>'
+                            svg: '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M239.3 48.7c-107.1 8.5-191.3 98.1-191.3 207.3 0 114.9 93.1 208 208 208 33.3 0 64.7-7.8 92.6-21.7-103.4-23.4-180.6-115.8-180.6-226.3 0-65.8 27.4-125.1 71.3-167.3zM0 256c0-141.4 114.6-256 256-256 19.4 0 38.4 2.2 56.7 6.3 9.9 2.2 17.3 10.5 18.5 20.5s-4 19.8-13.1 24.4c-60.6 30.2-102.1 92.7-102.1 164.8 0 101.6 82.4 184 184 184 5 0 9.9-.2 14.8-.6 10.1-.8 19.6 4.8 23.8 14.1s2 20.1-5.3 27.1C387.3 484.8 324.8 512 256 512 114.6 512 0 397.4 0 256z"/></svg>'
                     };
                 case 'public':
                 default:
                     return {
                         label: 'Öffentlich',
-                        svg: '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M256 464C141.1 464 48 370.9 48 256S141.1 48 256 48c3.5 0 6.9 .1 10.3 .3L232.5 73.6c-5.4 4-8.5 10.4-8.5 17.1l0 9.1c0 6.8 5.5 12.3 12.3 12.3 2.4 0 4.8-.7 6.8-2.1l41.8-27.9c2-1.3 4.4-2.1 6.8-2.1l1 0c6.2 0 11.3 5.1 11.3 11.3 0 3-1.2 5.9-3.3 8l-19.9 19.9c-5.8 5.8-12.9 10.2-20.7 12.8l-26.5 8.8c-5.8 1.9-9.6 7.3-9.6 13.4 0 3.7-1.5 7.3-4.1 10l-17.9 17.9c-6.4 6.4-9.9 15-9.9 24l0 4.3c0 16.4 13.6 29.7 29.9 29.7 11 0 21.2-6.2 26.1-16l4-8.1c2.4-4.8 7.4-7.9 12.8-7.9 4.5 0 8.7 2.1 11.4 5.7l16.3 21.7c2.1 2.9 5.5 4.5 9.1 4.5 8.4 0 13.9-8.9 10.1-16.4l-1.1-2.3c-3.5-7 0-15.5 7.5-18l21.2-7.1c7.6-2.5 12.7-9.6 12.7-17.6 0-10.3 8.3-18.6 18.6-18.6l29.4 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-20.7 0c-7.2 0-14.2 2.9-19.3 8l-4.7 4.7c-2.1 2.1-3.3 5-3.3 8 0 6.2 5.1 11.3 11.3 11.3l11.3 0c6 0 11.8 2.4 16 6.6l6.5 6.5c1.8 1.8 2.8 4.3 2.8 6.8s-1 5-2.8 6.8l-7.5 7.5C386 262 384 266.9 384 272s2 10 5.7 13.7L408 304c10.2 10.2 24.1 16 38.6 16l7.3 0c-4.1 12.6-9.3 24.7-15.6 36.1-3.7-2.6-8.2-4.1-13-4.1-6 0-11.8-2.4-16-6.6L396 332c-7.7-7.7-18-12-28.9-12-9.7 0-19.2-3.5-26.6-9.8L314 287.4c-11.6-9.9-26.4-15.4-41.6-15.4l-20.9 0c-12.6 0-25 3.7-35.5 10.7L188.5 301c-17.8 11.9-28.5 31.9-28.5 53.3l0 3.2c0 17 6.7 33.3 18.7 45.3l16 16c8.5 8.5 20 13.3 32 13.3l21.3 0c13.3 0 24 10.7 24 24 0 2.5 .4 5 1.1 7.3-5.7 .5-11.4 .7-17.1 .7zm0 48a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM187.3 123.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-32 32c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l32-32z"/></svg>'
+                            svg: '<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 512 512"><path d="M256 464C141.1 464 48 370.9 48 256S141.1 48 256 48c3.5 0 6.9 .1 10.3 .3L232.5 73.6c-5.4 4-8.5 10.4-8.5 17.1l0 9.1c0 6.8 5.5 12.3 12.3 12.3 2.4 0 4.8-.7 6.8-2.1l41.8-27.9c2-1.3 4.4-2.1 6.8-2.1l1 0c6.2 0 11.3 5.1 11.3 11.3 0 3-1.2 5.9-3.3 8l-19.9 19.9c-5.8 5.8-12.9 10.2-20.7 12.8l-26.5 8.8c-5.8 1.9-9.6 7.3-9.6 13.4 0 3.7-1.5 7.3-4.1 10l-17.9 17.9c-6.4 6.4-9.9 15-9.9 24l0 4.3c0 16.4 13.6 29.7 29.9 29.7 11 0 21.2-6.2 26.1-16l4-8.1c2.4-4.8 7.4-7.9 12.8-7.9 4.5 0 8.7 2.1 11.4 5.7l16.3 21.7c2.1 2.9 5.5 4.5 9.1 4.5 8.4 0 13.9-8.9 10.1-16.4l-1.1-2.3c-3.5-7 0-15.5 7.5-18l21.2-7.1c7.6-2.5 12.7-9.6 12.7-17.6 0-10.3 8.3-18.6 18.6-18.6l29.4 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-20.7 0c-7.2 0-14.2 2.9-19.3 8l-4.7 4.7c-2.1 2.1-3.3 5-3.3 8 0 6.2 5.1 11.3 11.3 11.3l11.3 0c6 0 11.8 2.4 16 6.6l6.5 6.5c1.8 1.8 2.8 4.3 2.8 6.8s-1 5-2.8 6.8l-7.5 7.5C386 262 384 266.9 384 272s2 10 5.7 13.7L408 304c10.2 10.2 24.1 16 38.6 16l7.3 0c-4.1 12.6-9.3 24.7-15.6 36.1-3.7-2.6-8.2-4.1-13-4.1-6 0-11.8-2.4-16-6.6L396 332c-7.7-7.7-18-12-28.9-12-9.7 0-19.2-3.5-26.6-9.8L314 287.4c-11.6-9.9-26.4-15.4-41.6-15.4l-20.9 0c-12.6 0-25 3.7-35.5 10.7L188.5 301c-17.8 11.9-28.5 31.9-28.5 53.3l0 3.2c0 17 6.7 33.3 18.7 45.3l16 16c8.5 8.5 20 13.3 32 13.3l21.3 0c13.3 0 24 10.7 24 24 0 2.5 .4 5 1.1 7.3-5.7 .5-11.4 .7-17.1 .7zm0 48a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM187.3 123.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-32 32c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l32-32z"/></svg>'
                     };
             }
         }
@@ -398,7 +400,7 @@ function formatMastoTime(string $isoDate): array {
 
                             const timeDataJs = formatMastoTimeJs(item.created_at);
                             const visDataJs = getVisibilityIconJs(item.visibility || 'public');
-                            
+
                             grid.innerHTML += `
                                 <div onclick="window.open('${escapeHtml(item.url)}', '_blank')" class="clickable-card flex flex-col justify-between bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200 h-full">
                                     <div class="space-y-3">
