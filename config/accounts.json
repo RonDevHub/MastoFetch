@@ -13,7 +13,7 @@
   },
   "widgets": {
     "my_widget": {
-      "title": "Meine Mastodon Feed´s",
+      "title": "Meine Mastodon Feeds",
       "accounts": ["user1_main", "tech_news"],
       "theme": "dark",
       "limit": 15,
