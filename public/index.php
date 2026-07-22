@@ -66,7 +66,7 @@ $baseUrl = $protocol . $host . $currentDir;
                     <div class="space-y-10">
                         <?php foreach ($widgets as $id => $w):
                             $embedUrl = $baseUrl . "/widget/" . urlencode($id);
-                            $embedCode = '<iframe src="' . $embedUrl . '" width="100%" height="600" style="border:none;"></iframe>';
+                            $embedCode = '<iframe src="' . $embedUrl . '" width="100%" height="600" style="border-radius: 16px; overflow: hidden; border: none;"></iframe>';
                         ?>
                             <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900/30 backdrop-blur-sm" x-data="{ copied: false, embedCode: <?php echo htmlspecialchars(json_encode($embedCode), ENT_QUOTES, 'UTF-8'); ?> }">
 
