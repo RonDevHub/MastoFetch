@@ -109,7 +109,7 @@ function formatMastoTime(string $isoDate): array
     <title><?php echo htmlspecialchars($widget['title']); ?></title>
     <link rel="icon" type="image/png" href="/assets/logo/MastoFetch.png">
     <link rel="stylesheet" href="/assets/widget-themes.css">
-    <link rel="stylesheet" href="/assets/widget-tailwind.css">
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
 
 <body class="h-screen flex flex-col overflow-hidden font-sans antialiased p-4">
