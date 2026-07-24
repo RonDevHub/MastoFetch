@@ -1,6 +1,5 @@
 FROM php:8.2-apache
 
-ARG BUILD_DATE
 ARG VERSION
 ARG VCS_REF
 
@@ -13,7 +12,6 @@ LABEL \
     org.opencontainers.image.version=$VERSION \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.created="$BUILD_DATE" \
     org.opencontainers.image.authors="RonDevHub <ron.dev@posteo.de>"
 
 # Installiere benötigte System-Abhängigkeiten und Compiler-Header für cURL und DOM
