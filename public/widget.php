@@ -12,13 +12,13 @@ $config = json_decode(file_get_contents($configPath), true);
 // --- Saubere Pfad-Ermittlung (Routing) ---
 $widgetId = '';
 
-// Fall 1: Aufruf über die schöne URL (z.B. /widget/multi_widget)
+// Aufruf über die schöne URL (z.B. /widget/multi_widget)
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (preg_match('#^/widget/([^/]+)$#', $requestUri, $matches)) {
     $widgetId = $matches[1];
 }
 
-// Fall 2: Fallback für die direkte URL (z.B. widget.php?id=multi_widget)
+// Fallback für die direkte URL (z.B. widget.php?id=multi_widget)
 if (empty($widgetId) && isset($_GET['id'])) {
     $widgetId = $_GET['id'];
 }
@@ -124,7 +124,6 @@ function formatMastoTime(string $isoDate): array
                 $shown = [];
                 foreach ($feedData as $item):
                     $origUsername = strtolower($item['account']['username']);
-                    // Zeige den Avatar nur, wenn er zu unseren eigenen Instanz-Accounts gehört und noch nicht ausgegeben wurde
                     if (in_array($origUsername, $allowedUsernames) && !in_array($origUsername, $shown)):
                         $shown[] = $origUsername; ?>
                         <a href="<?php echo htmlspecialchars($item['account']['url']); ?>" target="_blank" onclick="event.stopPropagation();" title="@<?php echo htmlspecialchars($item['account']['username']); ?>">
