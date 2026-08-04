@@ -21,7 +21,7 @@ class MastoAPI
 
     private function getToken(string $instance, string $accountKey): ?string
     {
-        // Option 1: Account-spezifisches Token (z.B. MASTO_TOKEN_RONNY_MAIN)
+        // Option 1: Account-spezifisches Token (z.B. MASTO_TOKEN_USER1_MAIN)
         $accountSpecificKey = 'MASTO_TOKEN_' . strtoupper(str_replace('-', '_', $accountKey));
         if (isset($this->env[$accountSpecificKey])) {
             return $this->env[$accountSpecificKey];
