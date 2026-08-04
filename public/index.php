@@ -6,7 +6,6 @@ if (file_exists($configPath)) {
     $widgets = $config['widgets'] ?? [];
 }
 
-// Host-URL sauber ermitteln und doppelte Slashes im Root verhindern
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'];
 $currentDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
@@ -21,7 +20,6 @@ $baseUrl = $protocol . $host . $currentDir;
     <title>MastoFetch Dashboard</title>
     <link rel="icon" type="image/png" href="/assets/logo/MastoFetch.png">
     <link rel="stylesheet" href="/assets/style.css">
-    <!-- Alpine.js -->
     <script defer src="/assets/alpine.js"></script>
 </head>
 
