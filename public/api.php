@@ -21,7 +21,7 @@ try {
         exit;
     }
 
-    // 1. Strikte Eingabe-Validierung der Widget-ID (Behebt Schwachstelle #3)
+    // 1. Strikte Eingabe-Validierung der Widget-ID (Behebt Schwachstelle)
     $widgetId = $_GET['widget'] ?? '';
     if (empty($widgetId) || !preg_match('/^[a-zA-Z0-9_\-]+$/', $widgetId)) {
         http_response_code(400);
@@ -39,8 +39,8 @@ try {
     $widget = $config['widgets'][$widgetId];
     $mastoCache = new MastoCache();
 
-    // 2. Behebt Schwachstelle #1 (DoS / Erzwungener Refresh):
-    // Wir übergeben 'false' für $forceRefresh. Die API liest primär aus dem Cache.
+    // 2. Behebt Schwachstelle (DoS / Erzwungener Refresh):
+    // Übergibt 'false' für $forceRefresh. Die API liest primär aus dem Cache.
     // Der Refresh wird innerhalb von getWidgetData() vollautomatisch und zeitgesteuert
     // nur dann getriggert, wenn die cache_ttl abgelaufen ist.
     $feedData = $mastoCache->getWidgetData($widget, $config['accounts'], false);
@@ -50,7 +50,7 @@ try {
         'data' => $feedData
     ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 } catch (Throwable $e) {
-    // 3. Behebt Schwachstelle #2 (Information Disclosure):
+    // 3. Behebt Schwachstelle (Information Disclosure):
     // Internes Protokollieren des echten Fehlers für das Server-Log
     error_log("MastoFetch API Error: " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine());
 
