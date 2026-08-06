@@ -172,5 +172,4 @@ $baseUrl = $protocol . $host . $currentDir;
     </div>
 
 </body>
-
 </html>
