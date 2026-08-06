@@ -1,4 +1,31 @@
 <?php
+// .env parsen
+$envFile = __DIR__ . '/../.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || strpos($line, '#') === 0) continue;
+        if (strpos($line, '=') !== false) {
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value, " \t\n\r\0\x0B\"'");
+            if (!array_key_exists($key, $_ENV)) {
+                $_ENV[$key] = $value;
+                putenv("{$key}={$value}");
+            }
+        }
+    }
+}
+
+$rawDisableDocs = $_ENV['DISABLE_DOCS'] ?? getenv('DISABLE_DOCS') ?: 'false';
+$disableDocs = filter_var($rawDisableDocs, FILTER_VALIDATE_BOOLEAN);
+
+if ($disableDocs === true) {
+    http_response_code(403);
+    exit('Dokumentation ist auf dieser Instanz deaktiviert.');
+}
+
 $configPath = __DIR__ . '/../config/accounts.json';
 $widgets = [];
 if (file_exists($configPath)) {
