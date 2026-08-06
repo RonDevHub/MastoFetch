@@ -1,6 +1,7 @@
 <h1 align="center">
   <img src="public/assets/logo/MastoFetch.png" height="80"><br>MastoFetch
 </h1>
+
 <div align="center">
 
 ![Created](https://mini-badges.rondev.de/forgejo/RonDevHub/MastoFetch/created-at/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/forgejo/RonDevHub/MastoFetch/lastcommit/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/stars/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/issues/*/*/en) ![GitHub Repo language](https://mini-badges.rondev.de/forgejo/RonDevHub/MastoFetch/language/*/*/en) ![GitHub Repo license](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/license/*/*/en) ![GitHub Repo release](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/release/*/*/en) ![GitHub Repo release](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/forks/*/*/en) ![GitHub Repo downlods](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/downloads/*/*/en) ![GitHub Repo stars](https://mini-badges.rondev.de/github/RonDevHub/MastoFetch/watchers) [![status-badge](https://ci.commitcloud.net/api/badges/13/status.svg)](https://ci.commitcloud.net/repos/16) 
