@@ -106,6 +106,9 @@ MastoFetch/
 # Format: MASTO_TOKEN_[ACCOUNTNAME_MIT_UNTERSTRICHEN]
 MASTO_TOKEN_USER1_MAIN=""
 MASTO_TOKEN_TECH_NEWS=""
+
+# "true" sperrt die index.php, "false" schaltet sie frei
+DISABLE_DOCS="true"
 ```
 
 ## Sicherheitshinweise
