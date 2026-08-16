@@ -16,6 +16,11 @@ MastoFetch ist ein leichtgewichtiges, ressourcensparendes und datenschutzkonform
 
 Die Anwendung arbeitet vollständig datenbankfrei, nutzt ein intelligentes dateibasiertes Caching und schützt die Privatsphäre der Endnutzer, indem Avatare und Medieninhalte über einen internen, gehärteten Proxy geladen werden, anstatt Daten direkt von externen Mastodon-Instanzen anzufragen.
 
+## Vorschau
+<div align="center">
+<img src="public/assets/logo/preview-1.png" alt="Vorschau" height="310"> <img src="public/assets/logo/preview-2.png" alt="Vorschau" height="310"> <img src="public/assets/logo/preview-3.png" alt="Vorschau" height="310">
+</div>
+
 ## Features
 
 - **Multi-Account Aggregation**: Kombiniert die Feeds verschiedener Mastodon-Profile chronologisch sortiert in einem Widget.
