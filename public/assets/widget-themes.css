@@ -30,7 +30,7 @@ html[data-theme="mastodon-dark"] {
   --border-color: #2c2f38;
   --accent: #2b90d9;
 }
-html[data-theme="solarized-light"] {
+html[data-theme="solarized"] {
   --bg-color: #fdf6e3;
   --card-bg: #fef9e8;
   --text-color: #586e75;
@@ -70,7 +70,7 @@ html[data-theme="gruvbox-dark"] {
   --border-color: #504945;
   --accent: #fabd2f;
 }
-html[data-theme="gruvbox-light"] {
+html[data-theme="gruvbox"] {
   --bg-color: #fbf1c7;
   --card-bg: #f2e5bc;
   --text-color: #3c3836;
@@ -158,6 +158,87 @@ html[data-theme="crimson-void"] {
   --text-muted: #a88a92;
   --border-color: #2e1a20;
   --accent: #ff2e5f;
+}
+/* 🧛 Dracula - klassisch, kontrastreich, populär */
+html[data-theme="dracula"] {
+  --bg-color: #282a36;
+  --card-bg: #44475a;
+  --text-color: #f8f8f2;
+  --text-muted: #6272a4;
+  --border-color: #44475a;
+  --accent: #bd93f9;
+}
+/* 🌲 Forest - natürlich, beruhigend, dunkel */
+html[data-theme="forest"] {
+  --bg-color: #172119;
+  --card-bg: #1f2d22;
+  --text-color: #e2ebd8;
+  --text-muted: #7c9481;
+  --border-color: #2a3d2e;
+  --accent: #52b788;
+}
+/* ☕ Coffee - warm, gemütlich, erdig */
+html[data-theme="coffee"] {
+  --bg-color: #201a18;
+  --card-bg: #2c2421;
+  --text-color: #ede0d4;
+  --text-muted: #9c8a81;
+  --border-color: #3d322c;
+  --accent: #ddb892;
+}
+/* 🌸 Sakura - hell, sanft, fernöstlich */
+html[data-theme="sakura"] {
+  --bg-color: #fff5f7;
+  --card-bg: #ffffff;
+  --text-color: #4a383b;
+  --text-muted: #9c8085;
+  --border-color: #fce1e6;
+  --accent: #ff85a1;
+}
+/* 🏮 Cyberpunk 2077 - extrem hoher Kontrast, knallig */
+html[data-theme="cyberpunk"] {
+  --bg-color: #fcee0a;
+  --card-bg: #000000;
+  --text-color: #00f0ff;
+  --text-muted: #a0a0a0;
+  --border-color: #ff0055;
+  --accent: #ff0055;
+}
+/* 📜 Parchment - Retro, Papier-Optik, warm */
+html[data-theme="parchment"] {
+  --bg-color: #f4ebd9;
+  --card-bg: #efe3ce;
+  --text-color: #433a31;
+  --text-muted: #7a6e60;
+  --border-color: #e2d2b9;
+  --accent: #a0522d;
+}
+/* 🌌 Midnight Synth - dunkel, lila, retro-futuristisch */
+html[data-theme="midnight-synth"] {
+  --bg-color: #120e24;
+  --card-bg: #1d173b;
+  --text-color: #e9e4f5;
+  --text-muted: #8275a5;
+  --border-color: #2e2559;
+  --accent: #00f5d4;
+}
+/* 🧊 Arctic Ice - kühl, sachlich, extrem clean */
+html[data-theme="arctic-ice"] {
+  --bg-color: #f0f8ff;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #dbeafe;
+  --accent: #0284c7;
+}
+/* 💼 Monochroma - minimal, direkt, keineswegs verspielt */
+html[data-theme="monochroma"] {
+  --bg-color: #0d0d0d;
+  --card-bg: #171717;
+  --text-color: #ffffff;
+  --text-muted: #737373;
+  --border-color: #262626;
+  --accent: #ffffff;
 }
 body {
   background: var(--bg-color);
