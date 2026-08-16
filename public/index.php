@@ -33,6 +33,7 @@ if (file_exists($configPath)) {
     $widgets = $config['widgets'] ?? [];
 }
 
+// Host-URL sauber ermitteln und doppelte Slashes im Root verhindern
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'];
 $currentDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
@@ -46,7 +47,8 @@ $baseUrl = $protocol . $host . $currentDir;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MastoFetch Dashboard</title>
     <link rel="icon" type="image/png" href="/assets/logo/MastoFetch.png">
-    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/style.v1.0.css">
+    <!-- Alpine.js -->
     <script defer src="/assets/alpine.js"></script>
 </head>
 
@@ -63,7 +65,7 @@ $baseUrl = $protocol . $host . $currentDir;
                         </div>
                         <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">MastoFetch Control Panel</span>
                     </div>
-                    <div class="text-sm text-neutral-400 font-mono">
+                    <div class="text-sm text-neutral-400 font-mono inline-flex items-center rounded-md bg-neutral-800 px-2.5 py-1 font-medium text-neutral-300 ring-1 ring-inset ring-neutral-700">
                         Version 1.0.0
                     </div>
                 </div>
@@ -88,7 +90,7 @@ $baseUrl = $protocol . $host . $currentDir;
                         <p class="mt-1 text-sm text-neutral-400">Füge in deiner <code>config/accounts.json</code> neue Widgets hinzu.</p>
                     </div>
                 <?php else: ?>
-                    <div class="space-y-10">
+                    <div class="space-y-10 mb-8">
                         <?php foreach ($widgets as $id => $w):
                             $embedUrl = $baseUrl . "/widget/" . urlencode($id);
                             $embedCode = '<iframe src="' . $embedUrl . '" width="100%" height="600" style="border-radius: 16px; overflow: hidden; border: none;"></iframe>';
@@ -143,7 +145,9 @@ $baseUrl = $protocol . $host . $currentDir;
                                                     "
                                                     class="inline-flex items-center gap-1.5 rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white shadow-sm ring-1 ring-inset ring-neutral-700 hover:bg-neutral-800 transition-all duration-200">
                                                     <span x-show="!copied" class="flex items-center gap-1">
-                                                        📋 Kopieren
+                                                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 640 640">
+                                                            <path d="M480 400L288 400C279.2 400 272 392.8 272 384L272 128C272 119.2 279.2 112 288 112L421.5 112C425.7 112 429.8 113.7 432.8 116.7L491.3 175.2C494.3 178.2 496 182.3 496 186.5L496 384C496 392.8 488.8 400 480 400zM288 448L480 448C515.3 448 544 419.3 544 384L544 186.5C544 169.5 537.3 153.2 525.3 141.2L466.7 82.7C454.7 70.7 438.5 64 421.5 64L288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L368 496L368 512C368 520.8 360.8 528 352 528L160 528C151.2 528 144 520.8 144 512L144 256C144 247.2 151.2 240 160 240L176 240L176 192L160 192z" />
+                                                        </svg> Kopieren
                                                     </span>
                                                     <span x-show="copied" class="flex items-center gap-1 text-emerald-400" x-cloak>
                                                         ✔ Kopiert!
@@ -166,10 +170,10 @@ $baseUrl = $protocol . $host . $currentDir;
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
-
             </div>
         </main>
     </div>
 
 </body>
+
 </html>
