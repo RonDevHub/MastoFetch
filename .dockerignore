@@ -7,5 +7,6 @@
 # Docker & local dev
 docker-compose.yml
 Dockerfile
+CHANGELOG.md
 README.md
 .env.example
