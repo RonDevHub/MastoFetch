@@ -12,13 +12,13 @@ $config = json_decode(file_get_contents($configPath), true);
 // --- Saubere Pfad-Ermittlung (Routing) ---
 $widgetId = '';
 
-// Aufruf über die schöne URL (z.B. /widget/multi_widget)
+// Fall 1: Aufruf über die schöne URL (z.B. /widget/multi_widget)
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (preg_match('#^/widget/([^/]+)$#', $requestUri, $matches)) {
     $widgetId = $matches[1];
 }
 
-// Fallback für die direkte URL (z.B. widget.php?id=multi_widget)
+// Fall 2: Fallback für die direkte URL (z.B. widget.php?id=multi_widget)
 if (empty($widgetId) && isset($_GET['id'])) {
     $widgetId = $_GET['id'];
 }
@@ -109,7 +109,7 @@ function formatMastoTime(string $isoDate): array
     <title><?php echo htmlspecialchars($widget['title']); ?></title>
     <link rel="icon" type="image/png" href="/assets/logo/MastoFetch.png">
     <link rel="stylesheet" href="/assets/widget-themes.css">
-    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/style.v1.0.css">
 </head>
 
 <body class="h-screen flex flex-col overflow-hidden font-sans antialiased p-4">
@@ -124,6 +124,7 @@ function formatMastoTime(string $isoDate): array
                 $shown = [];
                 foreach ($feedData as $item):
                     $origUsername = strtolower($item['account']['username']);
+                    // Zeige den Avatar nur, wenn er zu unseren eigenen Instanz-Accounts gehört und noch nicht ausgegeben wurde
                     if (in_array($origUsername, $allowedUsernames) && !in_array($origUsername, $shown)):
                         $shown[] = $origUsername; ?>
                         <a href="<?php echo htmlspecialchars($item['account']['url']); ?>" target="_blank" onclick="event.stopPropagation();" title="@<?php echo htmlspecialchars($item['account']['username']); ?>">
@@ -249,16 +250,36 @@ function formatMastoTime(string $isoDate): array
         </div>
     </div>
 
-    <!-- Fester Footer (Nicht scrollbar) -->
-    <div class="flex-none text-center mt-4 pt-4 border-t border-[var(--border-color)] text-xs text-[var(--text-muted)]">
-        Powered by <a href="https://codeberg.org/RonDevHub/MastoFetch" class="hover:text-[var(--accent)] font-semibold transition-colors" target="_blank" onclick="event.stopPropagation();">MastoFetch</a> |
-        <a href="https://rondev.de/donate" class="inline-flex items-center gap-1 hover:text-[var(--accent)] transition-colors align-middle" target="_blank" onclick="event.stopPropagation();">
-            <svg class="heart fill-current" height="14" width="14" viewBox="0 0 540 540" aria-hidden="true">
-                <path d="M308.2 488.2L494.4 302c29.2-29.2 45.6-68.9 45.6-110.2 0-86.1-69.8-155.8-155.8-155.8-41.3 0-81 16.4-110.2 45.6-2.2 2.2-5.8 2.2-8 0-29.2-29.2-68.9-45.6-110.2-45.6-86.1 0-155.8 69.8-155.8 155.8 0 41.3 16.4 81 45.6 110.2L231.8 488.2c21.1 21.1 55.3 21.1 76.4 0zM54 191.8c0 7.5-6 13.5-13.5 13.5S27 199.3 27 191.8c0-71.1 57.7-128.8 128.8-128.8 7.5 0 13.5 6 13.5 13.5S163.3 90 155.8 90C99.6 90 54 135.6 54 191.8zm258.2-72c-11.6 11.6-26.9 17.5-42.2 17.5-7.5 0-13.5-6-13.5-13.5s6-13.5 13.5-13.5c8.4 0 16.7-3.2 23.1-9.6 24.2-24.2 56.9-37.7 91.1-37.7 7.5 0 13.5 6 13.5 13.5S391.6 90 384.2 90c-27 0-52.9 10.7-72 29.8z" />
-            </svg>
-            <span>Donate</span>
-        </a>
-    </div>
+    <!-- Fester Footer -->
+    <footer class="flex-none text-center mt-6 pt-4 border-t border-[var(--border-color)] text-xs text-[var(--text-muted)]">
+        <div class="flex items-center justify-center gap-3 flex-wrap">
+
+            <a href="https://codeberg.org/RonDevHub/MastoFetch"
+                class="inline-flex items-center gap-1.5 font-medium hover:text-[var(--accent)] transition-colors py-1"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="event.stopPropagation();">
+                <svg class="fill-current w-3.5 h-3.5 opacity-80" viewBox="0 0 640 640" aria-hidden="true">
+                    <path d="M64 320C64 368.1 77.5 415.3 103.1 456L316.5 180.1C318 178.1 321.9 178.1 323.4 180.1L412.5 295.3L348.7 295.3L350.1 300.4L416.5 300.4L435.3 324.7L356.9 324.7L359.1 332.7L441.5 332.7L458.1 354.1L365.1 354.1L368 364.4L466 364.4L480.8 383.5L373.3 383.5L376.8 396.1L490.4 396.1L503.4 412.9L381.4 412.9L385.3 426.8L514.1 426.8L526.1 442.3L389.6 442.3L393.5 456.2L536.8 456.2C562.5 415.2 576 368 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM397.9 471.5L401.8 485.4L515.4 485.4C519.1 481 522.9 476.2 526.4 471.5L397.9 471.5zM406.1 500.9L409.9 514.8L485.9 514.8C490.9 510.6 496.3 505.7 501.1 500.9L406.1 500.9zM414.3 530.3L418.2 544.1L443.9 544.1C451.5 539.7 458.5 535.3 466.1 530.3L414.3 530.3z" />
+                </svg>
+                <span>Powered by <strong class="font-semibold">MastoFetch</strong></span>
+            </a>
+
+            <span class="opacity-30 select-none" aria-hidden="true">•</span>
+
+            <a href="https://rondev.de/donate"
+                class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--border-color)]/40 hover:bg-[var(--accent)] hover:text-white transition-all duration-200 text-xs font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="event.stopPropagation();">
+                <svg class="heart fill-current h-3 w-3" viewBox="0 0 540 540" aria-hidden="true">
+                    <path d="M308.2 488.2L494.4 302c29.2-29.2 45.6-68.9 45.6-110.2 0-86.1-69.8-155.8-155.8-155.8-41.3 0-81 16.4-110.2 45.6-2.2 2.2-5.8 2.2-8 0-29.2-29.2-68.9-45.6-110.2-45.6-86.1 0-155.8 69.8-155.8 155.8 0 41.3 16.4 81 45.6 110.2L231.8 488.2c21.1 21.1 55.3 21.1 76.4 0zM54 191.8c0 7.5-6 13.5-13.5 13.5S27 199.3 27 191.8c0-71.1 57.7-128.8 128.8-128.8 7.5 0 13.5 6 13.5 13.5S163.3 90 155.8 90C99.6 90 54 135.6 54 191.8zm258.2-72c-11.6 11.6-26.9 17.5-42.2 17.5-7.5 0-13.5-6-13.5-13.5s6-13.5 13.5-13.5c8.4 0 16.7-3.2 23.1-9.6 24.2-24.2 56.9-37.7 91.1-37.7 7.5 0 13.5 6 13.5 13.5S391.6 90 384.2 90c-27 0-52.9 10.7-72 29.8z" />
+                </svg>
+                <span>Donate</span>
+            </a>
+
+        </div>
+    </footer>
 
     <script>
         const allowedUsernames = <?php echo json_encode($allowedUsernames); ?>;
