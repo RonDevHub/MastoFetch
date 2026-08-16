@@ -26,7 +26,7 @@ Die Anwendung arbeitet vollständig datenbankfrei, nutzt ein intelligentes datei
   - Schutz vor Server-Side Request Forgery (SSRF) bei Medien-Downloads und Link-Scraping durch IP-Blacklisting (private/interne Netze).
   - Schutz vor Directory Traversal in der Proxy-Komponente via `realpath()`-Validierung.
   - Gehärtete API-Schnittstelle mit strikter Input-Validierung und Unterbindung von Information Disclosure bei Systemfehlern.
-- **Themes**: `dark`, `light`, `mastodon`, `mastodon-dark`, `solarized`, `solarized-dark`, `nord`, `monokai`, `gruvbox`, `gruvbox-dark`, `neon-pulse`, `sunset-fade`, `hyper-lavender`, `mint-circuit`, `ember-dark`, `deep-ocean`, `cloudline`, `vaporwave` & `crimson-void`  
+- **Themes**: `dark`, `light`, `mastodon`, `mastodon-dark`, `solarized`, `solarized-dark`, `nord`, `monokai`, `gruvbox`, `gruvbox-dark`, `neon-pulse`, `sunset-fade`, `hyper-lavender`, `mint-circuit`, `ember-dark`, `deep-ocean`, `cloudline`, `vaporwave`, `crimson-void`, `dracula`, `forest`, `coffee`, `sakura`, `cyberpunk`, `parchment`, `midnight-synth`, `arctic-ice` & `monochroma` 
 
 ## Ordnerstruktur
 
