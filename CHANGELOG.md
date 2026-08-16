@@ -9,3 +9,5 @@
 - Caching wurde angepasst, so kann nun für jedes Widget eine eigene Zeit definiert werden
 - OG-Vorschaubilder werden nun gecacht und über diese angezeigt
 - Neue Toots werden automatisch nachgeladen und angezeigt ohne das Widget neu geladen werden muss
+- Widget-Footer wurde angepasst
+- **Neue Themes:** `dracula`, `forest`, `coffee`, `sakura`, `cyberpunk`, `parchment`, `midnight-synth`, `arctic-ice` & `monochroma` wurden hinzugefügt
