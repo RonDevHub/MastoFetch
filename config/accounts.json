@@ -2,29 +2,29 @@
   "accounts": {
     "user1_main": {
       "instance": "mastodon.social",
-      "username": "dein_username",
-      "display_name": "User1 Main",
-      "limit": 10,
-      "theme": "dark",
-      "cache_ttl": 900
+      "username": "user1",
+      "display_name": "User1 Main"
     },
-    "user2_main": {
-      "instance": "mastodon.net",
-      "username": "dein_username",
-      "display_name": "User2 Tech",
-      "limit": 5,
-      "theme": "light",
-      "cache_ttl": 600
+    "tech_news": {
+      "instance": "chaos.social",
+      "username": "tech_feed",
+      "display_name": "Tech Feed"
     }
   },
   "widgets": {
-    "mein_multi_widget": {
-      "title": "Mein Mastodon Feed",
-      "accounts": ["user1_main", "user2_tech"]
+    "my_widget": {
+      "title": "Meine Mastodon Feeds",
+      "accounts": ["user1_main", "tech_news"],
+      "theme": "dark",
+      "limit": 15,
+      "cache_ttl": 900
     },
-    "user1_nur_main": {
-      "title": "Users1's Hauptfeed",
-      "accounts": ["user1_main"]
+    "my_other_widget": {
+      "title": "Mein Mastodon Feed",
+      "accounts": ["user1_main"],
+      "theme": "solarized",
+      "limit": 10,
+      "cache_ttl": 500
     }
   }
 }
